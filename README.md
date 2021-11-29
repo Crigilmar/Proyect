@@ -1,93 +1,246 @@
-# Proyecto del Primer Cuatrimestre Fundamentos de Programación (Curso 21-22 )
-Cristian Daniel Gil Martin Crigilmar
+# Proyecto del Primer Cuatrimestre Fundamentos de Programacion (Curso 21-22 )
+Cristian Daniel Gil Martin 
 
-
-
-Personas desaparecidas en India :
-Son datos de gente desaprecida , con fecha , sexo , nombre 
+UVUS : Crigilmar
 
 
 
 ## Estructura de las carpetas del proyecto
 CARPETA SCR : 
-MODULO 1 : ESTAN LAS INSTRUCCIONES DONDE LEE EL ARCHIVO , LO CONVIERTE A TUPLA 
-MODULO TEST : EN TEST TINE LOS ARCHIVOS EJECUTABLE PARA EJECUTAR LOS CODIGOS
+Desaparecidos:Tiene las funciones 
+TestDesaparecidos:Tiene las funciones para imprimir las funciones de Desaparecidos
     
 ## Estructura del *dataset*
 
-EL DATASET : CLEANDATA.CSV TIENE 12 COLUMNAS CADA UNA TIENE SU PROPOSITO : 
+EL DATASET : DESAPARECIDOS_INDIA_2018_220.CSV TIENE 9 COLUMNAS CADA UNA TIENE SU PROPOSITO : 
 
-Name: Nombre de los desaparecidos
+Tipo_de_sangre: Los tipos de sangre que Existen
+Nombres: Nombre de los desaparecidos
 
-Gender : sexo de los desaparecidos
+Genero : sexo de los desaparecidos
 
-Relative :posibles nombres de los desaparecidos
+Cuerpo: aspecto fisico de los desaparecidos
 
-Address: Dirreccion de los desaparecidos
+Distrito: Distrito donde Desaparecieron
 
-AgeStart : Minimo de edad que podrian tener cuando desaparecieron
+DENUNCIADO : si fue denunciado
 
-AgeEnd: Minimo de edad que podrian tener cuando desaparecieron
+Estatura: cuanto miden los desaparecidos
 
+Edad: Edad de los desaparecidos
 
-Built :Cuerpo fisico 
+Cuando_Desparecio : Fecha de los desaparecidos
 
-Dist : ? 
-
-State : Estado donde desaparecieron
 
 ## Tipos implementados
 
-C = namedtuple('C','Name,Gender,Relative,Address,AgeStart,AgeEnd,HeightStart,HeightEnd,Built,Date,Dist,State')
-
-guardar los datos en C (me gusta guardarlos con letras matusculas para encontrarlos mas rapido )
-
-## Funciones implementadas
-Añade aquí descripciones genéricas de las funciones, que luego debes acompañar con comentarios de tipo documentación en el código
-
-### \<modulo 1\>
-
 import csv
+
 from collections import namedtuple
 
-C = namedtuple('C','Name,Gender,Relative,Address,AgeStart,AgeEnd,HeightStart,HeightEnd,Built,Date,Dist,State')
 
-clean = '..\data\cleandata.csv'
 
-with open(clean, encoding='utf-8') as f:
-    lector = csv.reader(f)
-    next(lector)
-    Co2 = [(Name, Gender, Relative, Address, int(AgeStart), int(AgeEnd),HeightStart,HeightEnd,Built,Date,Dist,State)
-           for Name, Gender, Relative, Address, AgeStart,AgeEnd,HeightStart,HeightEnd,Built,Date,Dist,State in lector]
 
-def imprimir_total(file):
-    print('\n' "total de registro que tiene el archivo : ", len(Co2), '\n')
 
-def imprimir_3p(file):
-    print("los 3 primeros son: ", Co2[:3], '\n')
 
-def imprimir_ul(file):
-    print("los 3 ultimos son : ", Co2[-3:])
+
+Almacenamiento_de_datos = namedtuple('Almacenamiento_de_datos','Tipo_de_sangre,Nombres,Genero,Cuerpo,Distrito,'
+                                                           'DENUNCIADO,Estatura,Edad,Cuando_Desparecio')
+
+
+
+
+def abrir_csv (Doc):
+
+    with open(Doc, encoding='utf-8') as f:
     
-    abre el csv lo convierte a tupla y despues puede ejecutar 3 codigos : el total de los datos , los 3 primeros , o los 3 ultimos 
+        lector = csv.reader(f)
+        
+        next(lector)
+        
+        contenido = [Almacenamiento_de_datos(Tipo_de_sangre, Nombres, Genero, Cuerpo, Distrito, DENUNCIADO,
+                                              float(Estatura), int(Edad), Cuando_Desparecio) for Tipo_de_sangre, Nombres,Genero, Cuerpo, Distrito,DENUNCIADO, Estatura, Edad,Cuando_Desparecio in lector]
+                                              
+        return contenido
+        
+"""
+abre el archivo csv y lo almacena en un namedtuple ('Almacenamiento_de_datos',
+
+'Tipo_de_sangre,Nombres,Genero,Cuerpo,Distrito,'DENUNCIADO,Estatura,Edad,Cuando_Desparecio')
+
+ENTRADA: RUTA DEL ARCHIVO CSV 
+
+@:param contenido :es la lista de tuplas donde se guarda las columnas de los archivos csv 
+
+SALIDA : TUPLAS PARA ITERAR CON LOS DATOS DEL FICHERO.
+
+@:type [str,str,str,str,str,str,float,int,str,]
+
+"""
+
+
+def Filtrar_Contenido (Doc): #filtrar contenido
+
+    contenido1 = ("{}".format(s.Edad)for s in Doc)
+    
+    contenido2 = ("{}".format(s.Cuando_Desparecio) for s in Doc)
+    
+    Respuesta= print("EDADES:","{}".format(list(contenido1)))
+    
+    Respuesta_1 = print("FECHA DE DESAPARICION:","{}".format(list(contenido2)))
+    
+    return
+
+"""
+ENTRADA: Contenido 1 y 2 almacena las columnas para agregarlas en una tupla
+
+@:param entran las columnas s.edad y s.Cuando_Desaparecio  
+
+SALIDA : Respuesta , Respuesta_1 : imprimie una lista de todas los datos de edades y todos las fechas 
+
+@:type Respuesta : Edad*1000 , Respuesta : (str)Fechas*1000
+
+"""
+
+def DISTRITO(Doc): #suma total
+
+    contenido3 = {"{}".format(s.Distrito) for s in Doc}
+    
+    Respuesta_2 = print("TOTAL DE DISTRITOS :{}".format(len(contenido3)))
+    
+    return
+"""
+ENTRADA: Invocamos a s.Distrito y lo guardamos en un conjunto donde quita las variables repetidas
+
+@:param {s.Distrito}
+
+SALIDA : Respuesta 2 es el total de distritos que hay en el csv 
+
+@:type Respuesta_2 : len{s.Distrito}
+
+
+
+#bloque 2
+
+
+def MAXEDAD(Doc): #Valor Maximo y Minimo
+
+    C=set()
+    
+    for s in Doc:
+    
+        C.add(s.Edad)
+        
+    c=(min(C))
+    
+    d =(max(C))
+    
+
+    contenido4 = print("La edad minima es {} año y la maxima es {} años.".format(c,d))
+    
+    return contenido4
+    
+
+"""
+ENTRADA: invocamos a s.Edad para que esté en un conjunto donde se elimina las variables repetidas
+
+@:param c= set(S.Edad) == (-int,int,int,+int) 
+
+SALIDA : contenido4 =
+
+@:type contenido4 = {c(C=(min(s.edad)},{d(max(s.edad)}
+
+"""
+
+
+
+
+
+def EDADCONDI(Doc): #Lista por una propiedad
+
+    C=[]
+    
+    for s in Doc:
+    
+        C.append(s.Nombres)
+        
+    if C != 'B' or 'M':
+    
+       z = C
+       
+    print("Nombres sin M o B: {}".format(z))
+    
+"""
+ENTRADA: invocamos a s.Nombre por medio de una condicion hacemos que nos imprima lo que queremos
+
+@:param s.Nombres !=  M o B:
+
+SALIDA : se imprime un conjunto donde solo sale los nombres que no comienzan con M o B 
+
+@:type C=[s.nombres]
+
+"""
+
+
 
 ### \<test modulo test\>
-from modulo1 import *
-Titulo = "PROYECTO 1 "
 
-inicio = int(input("ELEGIJA LO QUE QUIERE HACER : "
-               "1)IMPRIMIR CUANTOS DATOS HAY EN TOTAL"
-               "2)LOS PRIMEROS 3 REGISTROS"
-               "3)LSO ULTIMOS 3 REGISTROS : "))
-if inicio == 1:
-    imprimir_total(Co2)
-elif inicio == 2:
-    imprimir_3p(Co2)
 
-elif inicio == 3:
-    imprimir_ul(Co2)
-else:
-    print("solo hay 3 opciones")
+# -*- coding: utf-8 -*-
+from Desaparecidos import *
 
-mini interfaz donde el ususario puede elegir que quiere hacer 
+>Importe de Desaparecidos
+
+def TestFiltro_nombres(fichero):
+
+    print("\n""------------------NOMBRES DE LAS PERSONAS DESAPARECIDAS-------------" "\n")
+    
+    print((Filtrar_Contenido(fichero)))
+    
+#IMPRIME lo filtrado
+
+def TestDistritos(fichero):
+
+    print("------------------NUMERO DE DISTRITOS QUE HAY EN TOTAL------------------")
+    
+    print((DISTRITO(Doc)))
+    
+>imprime el numero total de distritos 
+
+def TestMin(fichero):
+
+    print("------------------CUAL ES LA EDAD MINIMA Y LA MAXIMA DE LOS DESAPARECIDOS?------------------ ")
+    
+    print(MAXEDAD(Doc))
+    
+>Imprime el maximo y el minimo de edad
+
+def TestEDADCONDI(fichero):
+
+    print("------------------NOMBRES QUE NO COMIENZEN CON B Y M------------------ ")
+    
+    print(EDADCONDI(Doc))
+
+>filtra los nombres sin palabras que comienzan por B o M
+>
+
+Doc = abrir_csv('../data/DESAPARECIDOS_INDIA_2018_2020.csv')
+
+> variable donde almacena el csv y llama la funcion abrir_csv para que se pueda leer
+> 
+
+TestFiltro_nombres(Doc)
+
+
+TestDistritos(Doc)
+
+
+print("\n","BLOQUE II","\n")
+
+TestMin(Doc)
+
+TestEDADCONDI(Doc)
+
+
+
 
